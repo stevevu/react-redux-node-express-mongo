@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const newsController = require('../controllers/NewsController');
 
 const fakeNews = [{
     id: '1',
@@ -19,14 +20,61 @@ const fakeNews = [{
 }];
 
 router.get('/', (req,res,next) => {
-    res.status(200).send({data: fakeNews});
+    newsController.find(req.query, (err, results) => {
+        if (err) {
+            console.log("ERROR: news route find():", err);
+            res.status(500).json({
+                success: 0,
+                error: err
+            });
+        }
+        else {
+            res.status(200).json({
+                success: 1,
+                data: results
+            });
+        }
+        return;
+    });
 })
 
 router.get('/:id', (req,res,next) => {
     const id = req.params.id;
-    let selectedArticle = fakeNews.find (news => news.id == id );
-    res.status(200).send({data: selectedArticle});
+    newsController.findById(id, (err, results) => {
+        if (err) {
+            console.log("ERROR: news route find by id", err);
+            res.status(500).json({
+                success: 0,
+                error: err
+            });
+        }
+        else {
+            res.status(200).json({
+                success: 1,
+                data: results
+            });
+        }
+        return;
+    });
 })
 
+router.post('/', (req, res, next) => {
+    newsController.create(req.body, (err, result) => {
+        if (err) {
+            console.log("ERROR: news route create", err);
+            res.status(500).json({
+                success: 0,
+                error: err
+            })
+        }
+        else {
+            res.status(200).json({
+                success:1,
+                data: result
+            });
+        }
+        return;
+    })
+})
 
 module.exports = router;

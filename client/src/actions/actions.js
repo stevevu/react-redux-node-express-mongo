@@ -51,3 +51,18 @@ export function fetchNewsItem(id) {
         })
     }
 }
+
+export function submitNewsStory(data) {
+    return dispatch => {
+        return fetch('http://localhost:5000/news/', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+            mode: 'cors'
+        })
+        .catch( error => console.log("ERROR: submitting news story", error) )
+    }
+}

@@ -31,7 +31,7 @@ class News extends Component {
                 <ul>
                     {this.props.news.length ?
                         this.props.news.map( newsItem => (
-                            <li key={newsItem.id}><NewsItemListing data={newsItem} /></li>
+                            <li key={newsItem._id}><NewsItemListing data={newsItem} /></li>
                         ))
                     :
                     <div>Sorry, no news</div>

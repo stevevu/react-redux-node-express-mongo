@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 
 class NewsItemDetail extends Component {
     render() {
@@ -10,5 +11,13 @@ class NewsItemDetail extends Component {
         );
     }
 }
+
+NewsItemDetail.propTypes = {
+    data: PropTypes.shape({
+        _id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        body: PropTypes.string.isRequired
+    })
+};
 
 export default NewsItemDetail;
